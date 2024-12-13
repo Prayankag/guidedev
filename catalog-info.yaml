@@ -1,0 +1,44 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: guidedev
+  description: provision EC2 server for dev environment
+spec:
+  owner: group:default/guests
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: guidedev
+  description: provision EC2 server for dev environment
+  annotations:
+     backstage.io/techdocs-ref: dir:./docs
+     github.com/project-slug: prayankag/guidedev
+     github-actions: enabled
+     github.com/workflows: |
+      [
+        {
+          "workflow": "instance.yaml",
+          "label": "Start",
+          "tooltip": "click here and start the workflow process"
+        }
+      ]
+spec:
+  type: service
+  owner: group:default/guests
+  lifecycle: experimental
+  system: guidedev
+  providesApis:
+    - guidedev
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: guidedev
+  description: provision EC2 server for dev environment
+spec:
+  type: internal
+  lifecycle: experimental
+  owner: group:default/guests
+  system: guidedev
+  definition: "provision EC2 server for dev environment"
